@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('stockApp.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -8,6 +8,15 @@ angular.module('starter.controllers', [])
   // listen for the $ionicView.enter event:
   //$scope.$on('$ionicView.enter', function(e) {
   //});
+
+  $scope.playlists = [
+    { title: 'Test value', id: 1 },
+    { title: 'Chill', id: 2 },
+    { title: 'Dubstep', id: 3 },
+    { title: 'Indie', id: 4 },
+    { title: 'Rap', id: 5 },
+    { title: 'Cowbell', id: 6 }
+  ];
 
   // Form data for the login modal
   $scope.loginData = {};
@@ -39,18 +48,34 @@ angular.module('starter.controllers', [])
       $scope.closeLogin();
     }, 1000);
   };
+
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
-})
+.controller('MyStocksCtrl', ['$scope',
+  function($scope) {
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
-});
+    $scope.myStocks = [
+      { ticker: 'AAPL'},
+      { ticker: 'GPRO'},
+      { ticker: 'FB'},
+      { ticker: 'NFLX'},
+      { ticker: 'TSLA'},
+      { ticker: 'BRK-A'},
+      { ticker: 'INTC'},
+      { ticker: 'MSFT'},
+      { ticker: 'GE'},
+      { ticker: 'BAC'},
+      { ticker: 'C'},
+      { ticker: 'T'}
+    ];
+
+}])
+
+.controller('StockCtrl', ['$scope', '$stateParams', '$http',
+  function($scope, $stateParams, $http) {
+
+    //http://finance.yahoo.com/webservice/v1/symbols/YHOO/quote?bypass=true&format=json&view=detail
+
+    $scope.ticker = $stateParams.stockTicker;
+
+}]);
